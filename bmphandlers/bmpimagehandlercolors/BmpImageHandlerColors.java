@@ -108,7 +108,6 @@ public class BmpImageHandlerColors extends ImageHandler{
     for (int j = height - 1; j >= 0; j--){
       for (int i = 0; i < width; i++){
         Pixel pixel = pixeltable.getPixel(j,i);
-        //int luminance = (int)(pixel.getRed()*0.3 + pixel.getGreen()*0.59 + pixel.getBlue()*0.11);
         int red =   (int)(pixel.getRed()*.393 + pixel.getGreen()*.769 + pixel.getBlue()*.189);
         int green = (int)(pixel.getRed()*.349 + pixel.getGreen()*.686 + pixel.getBlue()*.168);
         int blue =  (int)(pixel.getRed()*.272 + pixel.getGreen()*.534 + pixel.getBlue()*.131);
@@ -118,7 +117,7 @@ public class BmpImageHandlerColors extends ImageHandler{
       }
     }
     output.close();
-
+    System.out.println("Imagenes generadas: " + this.redfilename + ", " + this.greenfilename + ", " + this.bluefilename + ", " + this.sepiafilename);
   }
 
 

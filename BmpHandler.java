@@ -25,7 +25,10 @@ public class BmpHandler {
 	public static void main(String[] args) throws Exception {
 		String runoption = args[0];
 		String filename = args[1];
-		String filename2 = args[2];
+		String filename2 = "";
+		if (args.length > 2) {
+			filename2 = args[2];
+		}
 		switch(runoption) {
 			case "-copy": {
 				BmpHandlerCopy bhc = new BmpHandlerCopy(filename);
@@ -39,6 +42,11 @@ public class BmpHandler {
 			}
 			case "-rotate": {
 				BmpImageHandlerRotator bhc = new BmpImageHandlerRotator(filename);
+				runHandler(bhc);
+				break;
+			}
+			case "-grayscale": {
+				BmpImageToGrayscale bhc = new BmpImageToGrayscale(filename);
 				runHandler(bhc);
 				break;
 			}
