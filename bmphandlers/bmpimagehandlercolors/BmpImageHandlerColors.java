@@ -127,9 +127,9 @@ public class BmpImageHandlerColors extends ImageHandler{
     pixeltable = new PixelTable(height, width);
     for (int i = 54; i < filebytes.length - 1; i = i + 3){
       if (i%3 == 0){
-        int red = filebytes[i+2] & 0xff;
-        int green = filebytes[i+1] & 0xff;
         int blue = filebytes[i] & 0xff;
+        int green = filebytes[i+1] & 0xff;
+        int red = filebytes[i+2] & 0xff;
         Pixel pixel = new Pixel(red,green,blue);
         pixeltable.addPixel(pixel,y,x);
         x++;

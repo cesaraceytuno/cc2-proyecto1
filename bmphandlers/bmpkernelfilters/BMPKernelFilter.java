@@ -41,34 +41,40 @@ public class BMPKernelFilter extends ImageHandler{
 
     createPixelTable(this.filebytes, this.width, this.height);
     readKernel();
+    //System.out.println(pixeltable.getPixel(479,0));
+    for (int j = height - 1; j >= 0; j--){
+      for (int i = 0; i < width; i++){
+        Pixel pixel = pixeltable.getPixel(j,i);
+        
+      }
+    }
 
   }
 
   public void generateFiles() throws Exception{
-    
+
   }
 
   private void readKernel() throws Exception{
-    Scanner scan = new Scanner(new File(this.kernelfilename));
-
-    //reads the length of the kernel matrix
+    BufferedReader br = new BufferedReader(new FileReader(this.kernelfilename));
+    String line = null;
+    String[] numbers = null;
     int len = 0;
-    String[] aux = scan.nextLine().trim().split(" ");
-    for (int i = 0; i < aux.length; i++){
-      len++;
-      System.out.println(aux[i]);
-    }
-    scan.close();
-    //prints kernel matrix to internal Array
-    scan = new Scanner(this.kernelfilename);
-    this.kernel = new float[len][len];
-    for (int i = 0; i < len; i++){
-      for (int j = 0; j < len; j++){
-        this.kernel[i][j] = Float.valueOf(scan.nextInt());
-      }
-    }
-    System.out.println(this.kernel);
 
+    line = br.readLine();
+    numbers = line.split("\\d\\s+");
+    len = numbers.length;
+    this.kernel = new float[len][len];
+    br.close();
+    br = new BufferedReader(new FileReader(this.kernelfilename));
+    int i = 0;
+    while ((line = br.readLine()) != null){
+      numbers = line.split(" ");
+      for (int j = 0; j < numbers.length; j++){
+        this.kernel[i][j] = Float.valueOf(numbers[j].trim());
+      }
+      i++;
+    }
   }
 
   private void createPixelTable(byte[] filebytes, int width, int height) throws Exception{

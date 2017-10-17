@@ -50,6 +50,12 @@ public class BmpHandler {
 				runHandler(bhc);
 				break;
 			}
+			case "-all": {
+				runHandler(new BmpImageHandlerColors(filename));
+				runHandler(new BmpImageHandlerRotator(filename));
+				runHandler(new BmpImageToGrayscale(filename));
+				break;
+			}
 			case "-kernel": {
 				BMPKernelFilter bhc = new BMPKernelFilter(filename2, filename);
 				runHandler(bhc);
