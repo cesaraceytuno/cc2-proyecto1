@@ -16,10 +16,11 @@ public class PixelTable{
   }
 
   public Pixel getPixel(int y, int x){
-    if (y < height || y > height || x < width || x > width){
+    try{
+      Pixel pixel = table[y][x];
+      return pixel;
+    }catch(Exception e){
       return null;
     }
-    Pixel pixel = table[y][x];
-    return pixel;
   }
 }

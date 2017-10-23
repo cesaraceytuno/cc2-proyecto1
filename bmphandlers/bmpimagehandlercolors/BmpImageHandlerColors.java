@@ -41,6 +41,16 @@ public class BmpImageHandlerColors extends ImageHandler{
     System.out.println("Width: " + this.width);
     System.out.println("Height: " + this.height);
     System.out.println("Pixel bits: " + bits);
+    String[] fileformat = handledFileName.split("[.]");
+    if (bits != 24){
+      System.out.println();
+      System.out.println("Error: Number of bits in image not allowed");
+      System.exit(1);
+    }else if (!fileformat[1].equals("bmp")){
+      System.out.println();
+      System.out.println("Error: File format " + fileformat[1] + " not allowed");
+      System.exit(1);
+    }
 
     createPixelTable(this.filebytes, this.width, this.height);
 
@@ -117,7 +127,7 @@ public class BmpImageHandlerColors extends ImageHandler{
       }
     }
     output.close();
-    System.out.println("Imagenes generadas: " + this.redfilename + ", " + this.greenfilename + ", " + this.bluefilename + ", " + this.sepiafilename);
+    System.out.println("Imagenes generadas : " + this.redfilename + ", " + this.greenfilename + ", " + this.bluefilename + ", " + this.sepiafilename);
   }
 
 

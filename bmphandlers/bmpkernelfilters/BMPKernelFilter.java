@@ -39,15 +39,14 @@ public class BMPKernelFilter extends ImageHandler{
     System.out.println("Height: " + this.height);
     System.out.println("Pixel bits: " + bits);
 
+    if (bits != 24){
+      System.out.println();
+      System.out.println("Error: Number of bits in image not allowed");
+      System.exit(1);
+    }
+
     createPixelTable(this.filebytes, this.width, this.height);
     readKernel();
-    //System.out.println(pixeltable.getPixel(479,0));
-    for (int j = height - 1; j >= 0; j--){
-      for (int i = 0; i < width; i++){
-        Pixel pixel = pixeltable.getPixel(j,i);
-        
-      }
-    }
 
   }
 

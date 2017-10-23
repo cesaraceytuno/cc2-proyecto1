@@ -4,6 +4,7 @@ import bmphandlers.bmpimagehandlercopy.*;
 import bmphandlers.bmpimagehandlercolors.*;
 import bmphandlers.bmphandlerrotators.*;
 import bmphandlers.bmpkernelfilters.*;
+import java.io.*;
 
 public class BmpHandler {
 
@@ -12,7 +13,12 @@ public class BmpHandler {
 		System.out.println("--------------------------------------");
 		System.out.println(imgh.getClass().getTypeName().toUpperCase() + ": ");
 		System.out.println("\nLeyendo imagen : " + imgh.getFileName());
-		imgh.readFile();
+		try{
+			imgh.readFile();
+		}catch(FileNotFoundException f){
+			System.out.println("Error: " + f.getMessage());
+			System.exit(1);
+		}
 		System.out.println("Proceso de lectura de imagen terminado!");
 		System.out.println("\nGenerando imagenes : ");
 		imgh.generateFiles();
@@ -23,12 +29,24 @@ public class BmpHandler {
 
 
 	public static void main(String[] args) throws Exception {
-		String runoption = args[0];
-		String filename = args[1];
-		String filename2 = "";
-		if (args.length > 2) {
-			filename2 = args[2];
+		String runoption = "";
+		String filename = "";
+		String kernelfilename = "";
+
+		if (args.length == 1){
+			runoption = args[0];
+		}else if (args.length == 2){
+			runoption = args[0];
+			filename = args[1];
+		}else if (args.length == 3){
+			runoption = args[0];
+			kernelfilename = args[1];
+			filename = args[2];
+		}else{
+			System.out.println("Error: Wrong number of Arguments");
+			System.exit(1);
 		}
+
 		switch(runoption) {
 			case "-copy": {
 				BmpHandlerCopy bhc = new BmpHandlerCopy(filename);
@@ -57,9 +75,20 @@ public class BmpHandler {
 				break;
 			}
 			case "-kernel": {
-				BMPKernelFilter bhc = new BMPKernelFilter(filename2, filename);
+				BMPKernelFilter bhc = new BMPKernelFilter(filename, kernelfilename);
 				runHandler(bhc);
 				break;
+			}
+			case "-help": {
+				System.out.println("Usage: java BmpHandler -options [kernelfilename] imagename.bmp");
+				System.out.println();
+				System.out.println("options");
+				System.out.println("-------");
+				System.out.println("-colors:\twill generate 4 files corresponding to Red, Green, Blue and Sepia matrix of the image passed as argument");
+				System.out.println("-rotate:\twill generate 2 files corresponding to a Vertical and Horizontal rotation of the image passed as argument");
+				System.out.println("-grayscale:\twill generate a grayscale 8 bit image from the image passed as argument");
+				System.out.println("-kernel:\twill generate a modified image using a \"kernelfilename\" matrix to the image passed as argument");
+				System.exit(0);
 			}
 			default: {
 				System.out.println("Opcion de ejecucion invalida");

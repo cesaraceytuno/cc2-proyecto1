@@ -46,6 +46,12 @@ public class BmpImageToGrayscale extends ImageHandler{
     System.out.println("Height: " + this.height);
     System.out.println("Pixel bits: " + bits);
 
+    if (bits != 24){
+      System.out.println();
+      System.out.println("Error: Number of bits in image not allowed");
+      System.exit(1);
+    }
+
     createPixelTable(this.filebytes, this.width, this.height);
 
 
@@ -81,7 +87,7 @@ public class BmpImageToGrayscale extends ImageHandler{
     }
     output.close();
 
-    System.out.println("Imagen generada: " + this.grayfilename);
+    System.out.println("Imagenes generadas : " + this.grayfilename);
 
   }
 

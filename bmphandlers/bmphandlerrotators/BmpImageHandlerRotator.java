@@ -37,6 +37,12 @@ public class BmpImageHandlerRotator extends ImageHandler{
     System.out.println("Height: " + this.height);
     System.out.println("Pixel bits: " + bits);
 
+    if (bits != 24){
+      System.out.println();
+      System.out.println("Error: Number of bits in image not allowed");
+      System.exit(1);
+    }
+
     createPixelTable(this.filebytes, this.width, this.height);
 
   }
@@ -75,6 +81,7 @@ public class BmpImageHandlerRotator extends ImageHandler{
           }
         }
         output.close();
+    System.out.println("Imagenes generadas : " + this.vfilename + ", " + this.hfilename);
   }
 
   private void createPixelTable(byte[] filebytes, int width, int height) throws Exception{
